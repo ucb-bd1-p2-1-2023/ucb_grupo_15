@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Drive</title>
+    <style>
+        #map {
+          height: 400px; /* Establece la altura deseada del mapa */
+          width: 100%; /* Establece el ancho deseado del mapa */
+        }
+      </style>
+      <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
+      <script>
+        function initMap() {
+          var ubicacion = {lat: LATITUD, lng: LONGITUD}; // Cambia LATITUD y LONGITUD por las coordenadas de la ubicación deseada
+    
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15, // Nivel de zoom del mapa
+            center: ubicacion // Ubicación inicial del mapa
+          });
+    
+          var marker = new google.maps.Marker({
+            position: ubicacion,
+            map: map,
+            title: 'Ubicación'
+          });
+        }
+    </script>
+</head>
+<body>
+    <style>
+        a {
+            color: black;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+    <div class="box">
+        <h1 class="title is-1">Pagina Principal</h1>
+        <h2 class="subtitle is-3">Mapa</h2>
+        <a href="index.html" > Atras</a>
+    </div>
+    <div id="map"></div>
+    <script>
+    // Llama a la función initMap una vez que se haya cargado la página
+    window.onload = function() {
+      initMap();
+    }
+  </script>
+</body>
+</html>

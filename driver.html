@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>In Driver</title>
+</head>
+<body>
+    <style>
+        a {
+            color: black;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+    <div class="box">
+        <h1 class="title is-1">Datos del dueño del vehivulo</h1>
+        <h2 class="subtitle is-3">Llena los datos</h2>
+        <a href="index.html" > Atras</a>
+    </div>
+    <div class="box my-6">
+        <div class="field">
+            <label class="label" for="licencia">Numero de Licencia:</label>
+            <div class="control">
+                <input class="input" type="text" id="licencia" placeholder="Exammple: 000000000000000">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="marca_auto">Marca de auto:</label>
+            <div class="control">
+                <input class="input" type="text" id="marca_auto" placeholder="Example: Toyota">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="placa">Placa:</label>
+            <div class="control">
+                <input class="input" type="text" id="placa" placeholder="Example: 0000 - AAAA">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="capacidad">Numero de asientos:</label>
+            <div>
+                <input class="input" type="capacidad" id="capacidad" placeholder="Example: 2">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="modelo">Modelo del vehiculo:</label>
+            <div>
+                <input class="input" type="text" id="modelo" placeholder="Example: Mitsubishi Mirage (version GLX TM)">
+            </div>
+        </div>
+        <div class="block">
+            <button class="button is-primary is-meidum is-fullwidth mt-6" onclick="submitForm()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
