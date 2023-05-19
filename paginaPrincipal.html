@@ -1,94 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Calculadora de distancia con Google Maps</title>
+    <title>In Drive</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkeIuW3s504gN8C1Tl5Bqy3ML6ly_rEpc"></script>
     <script>
-    var map;
-    var marcadorOrigen;
-    var marcadorDestino;
-    
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -17.372377, lng: -66.143508}, // Centro del mapa inicial
-            zoom: 15 // Nivel de zoom inicial
-        });
-    
-        marcadorOrigen = new google.maps.Marker({
-            map: map,
-            draggable: true, // Permite arrastrar el marcador
-            title: 'Origen'
-        });
-    
-        marcadorDestino = new google.maps.Marker({
-            map: map,
-            draggable: true, // Permite arrastrar el marcador
-            title: 'Destino'
-        });
-    
-        google.maps.event.addListener(map, 'click', function(event) {
-            establecerMarcadorOrigen(event.latLng);
-        });
+        var map;
+        var marcadorOrigen;
+        var marcadorDestino;
+        
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -17.372377, lng: -66.143508}, // Centro del mapa inicial
+                zoom: 15 // Nivel de zoom inicial
+            });
+        
+            marcadorOrigen = new google.maps.Marker({
+                map: map,
+                draggable: true, // Permite arrastrar el marcador
+                title: 'Origen'
+            });
+        
+            marcadorDestino = new google.maps.Marker({
+                map: map,
+                draggable: true, // Permite arrastrar el marcador
+                title: 'Destino'
+            });
+        
+            google.maps.event.addListener(map, 'click', function(event) {
+                establecerMarcadorOrigen(event.latLng);
+            });
 
-        google.maps.event.addListener(map, 'center_changed', function() {
-            marcadorOrigen.setPosition(map.getCenter());
+            google.maps.event.addListener(map, 'center_changed', function() {
+                marcadorOrigen.setPosition(map.getCenter());
+                calcularDistancia();
+            });
+        }
+        
+        function establecerMarcadorOrigen(location) {
+            marcadorOrigen.setPosition(location);
             calcularDistancia();
-        });
-    }
-    
-    function establecerMarcadorOrigen(location) {
-        marcadorOrigen.setPosition(location);
-        calcularDistancia();
-    }
-    
-    function establecerMarcadorDestino(location) {
-        marcadorDestino.setPosition(location);
-        calcularDistancia();
-    }
-    
-    function calcularDistancia() {
-        var origen = marcadorOrigen.getPosition();
-        var destino = marcadorDestino.getPosition();
-    
-        var directionsService = new google.maps.DirectionsService();
-    
-        var request = {
-            origin: origen,
-            destination: destino,
-            travelMode: google.maps.TravelMode.DRIVING
-        };
-    
-        directionsService.route(request, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                var distancia = response.routes[0].legs[0].distance.text;
-                var duracion = response.routes[0].legs[0].duration.text;
-    
-                document.getElementById('resultado').innerHTML = 'Distancia: ' + distancia + '<br>Duración: ' + duracion;
-            } else {
-                document.getElementById('resultado').innerHTML = 'Error al calcular la distancia.';
-            }
-        });
-    }
+        }
+        
+        function establecerMarcadorDestino(location) {
+            marcadorDestino.setPosition(location);
+            calcularDistancia();
+
+            // Obtener los elementos de los labels por su ID
+            var fechaLabel = document.getElementById("fechaLabel");
+            var horaLabel = document.getElementById("horaLabel");
+
+            // Obtener la fecha y hora actual
+            var fechaActual = new Date();
+
+            // Formatear la fecha y hora en el formato deseado
+            var fechaFormateada = fechaActual.toLocaleDateString();
+            var horaFormateada = fechaActual.toLocaleTimeString();
+
+            // Actualizar el contenido de los labels con la fecha y hora
+            fechaLabel.innerHTML += fechaFormateada;
+            horaLabel.innerHTML += horaFormateada;
+        }
+        
+        function calcularDistancia() {
+            var origen = marcadorOrigen.getPosition();
+            var destino = marcadorDestino.getPosition();
+        
+            var directionsService = new google.maps.DirectionsService();
+        
+            var request = {
+                origin: origen,
+                destination: destino,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+        
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    var distancia = response.routes[0].legs[0].distance.text;
+                    var duracion = response.routes[0].legs[0].duration.text;
+        
+                    document.getElementById('resultado_distancia').innerHTML = distancia;
+                    document.getElementById('resultado_duracion').innerHTML = duracion;
+                    
+                    //falta el monto
+                    document.getElementById('monto').innerHTML;
+                } else {
+                    document.getElementById('resultado').innerHTML = 'Error al calcular la distancia.';
+                }
+            });
+        }
     </script>
-    <style>
-    #map {
-        height: 600px;
-        width: 100%;
-    }
-    </style>
 </head>
 <body>
-    <h1>Calculadora de distancia con Google Maps</h1>
-    <div id="map"></div>
-    <br>
-    <button onclick="establecerMarcadorOrigen(map.getCenter())">Origen</button>
-    <button onclick="establecerMarcadorDestino(map.getCenter())">Destino</button>
-    <br>
-    <div id="resultado"></div>
-
+    <div class="padre">
+        <div>
+            <h1>Mapa</h1>
+            <a class="botones_arriba" href="index.html" > Atras<a></a>
+            <div class="botones_head">
+                <a class="botones_arriba" href="comentarios.html"> Comentarios</a>
+                <button class="botones_arriba"> Historial</button>
+            </div>
+        </div>
+        <div id="map"></div>
+        <br>
+        <div class="form_tarifas">
+            <div class="botones">
+                <button class="botones_arriba" onclick="establecerMarcadorOrigen(map.getCenter())">Origen</button>
+                <button class="botones_arriba" onclick="establecerMarcadorDestino(map.getCenter())">Destino</button>
+            </div>
+            <div class="labels_form">
+                <label class="titulo">Distancia: </label>
+                <label id="resultado_distancia"></label>
+                <br>
+                <label class="titulo">Duracion: </label>
+                <label id="resultado_duracion"></label>
+                <br>
+                <label class="titulo" id="">Fecha: </label>
+                <label class="" id="fechaLabel"></label>
+                <br>
+                <label class="titulo" id="">Hora: </label>
+                <label class="" id="horaLabel"> </label>
+                <br>
+                <label class="titulo" id="">Monto: </label>
+                <label id="monto"></label>
+            </div>
+        </div>
+        <br>
+    </div>
     <script>
         window.onload = function() {
-        initMap();
+            initMap();
         }
     </script>
 </body>
