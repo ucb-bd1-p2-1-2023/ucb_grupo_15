@@ -2,7 +2,10 @@
 <html>
 <head>
     <title>In Drive</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="style.css">
+=======
+>>>>>>> b5bdac7048793396f6f110b67c78492ac8d5c6d6
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkeIuW3s504gN8C1Tl5Bqy3ML6ly_rEpc"></script>
     <script>
         var map;
@@ -45,6 +48,7 @@
         function establecerMarcadorDestino(location) {
             marcadorDestino.setPosition(location);
             calcularDistancia();
+<<<<<<< HEAD
 
             // Obtener los elementos de los labels por su ID
             var fechaLabel = document.getElementById("fechaLabel");
@@ -60,6 +64,8 @@
             // Actualizar el contenido de los labels con la fecha y hora
             fechaLabel.innerHTML += fechaFormateada;
             horaLabel.innerHTML += horaFormateada;
+=======
+>>>>>>> b5bdac7048793396f6f110b67c78492ac8d5c6d6
         }
         
         function calcularDistancia() {
@@ -79,17 +85,22 @@
                     var distancia = response.routes[0].legs[0].distance.text;
                     var duracion = response.routes[0].legs[0].duration.text;
         
+<<<<<<< HEAD
                     document.getElementById('resultado_distancia').innerHTML = distancia;
                     document.getElementById('resultado_duracion').innerHTML = duracion;
                     
                     //falta el monto
                     document.getElementById('monto').innerHTML;
+=======
+                    document.getElementById('resultado').innerHTML = 'Distancia: ' + distancia + '<br>Duración: ' + duracion;
+>>>>>>> b5bdac7048793396f6f110b67c78492ac8d5c6d6
                 } else {
                     document.getElementById('resultado').innerHTML = 'Error al calcular la distancia.';
                 }
             });
         }
     </script>
+<<<<<<< HEAD
 </head>
 <body>
     <div class="padre">
@@ -127,6 +138,26 @@
         </div>
         <br>
     </div>
+=======
+    <style>
+        #map {
+            height: 700px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mapa</h1>
+    <div id="map"></div>
+    <br>
+    <div>
+        <button onclick="establecerMarcadorOrigen(map.getCenter())">Origen</button>
+        <button onclick="establecerMarcadorDestino(map.getCenter())">Destino</button>
+    </div>
+    <br>
+    <div id="resultado"></div>
+
+>>>>>>> b5bdac7048793396f6f110b67c78492ac8d5c6d6
     <script>
         window.onload = function() {
             initMap();
