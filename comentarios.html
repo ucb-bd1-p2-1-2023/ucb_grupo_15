@@ -3,81 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style_comentarios.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentarios</title>
 </head>
 <body>
-    <div >
+    <div class="comentarios">
         <div>
-            <a href="paginaPrincipal.html"> Atras</a>
-            <br>
+            <a class="bot_atras" href="paginaPrincipal.html">Atras</a>
         </div>
-        <div class="conductor">
-            <label class="conductor">Conductor</label>
+        <div class="contenedor_nom_estrella">
+            <div class="nombre">
+                <label class="nom_label">Conductor</label>
+            </div>
+            <div class="estrellas">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5"></label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4"></label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3"></label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2"></label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1"></label>
+            </div>
+        </div>
         <div>
-        <div class="rating">
-            <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5"></label>
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4"></label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3"></label>
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2"></label>
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1"></label>
+            <textarea class="coment_text" name="" id="" cols="30" rows="10"></textarea>
         </div>
-        <br>
-        <div class="textbox">
-            <textarea id="myTextarea" rows="4" cols="50"></textarea>
+        <div class="">
+            <button class="boton_comentar">Publicar</button>
         </div>
     </div>
-    <style>
-        .rating-container {
-            display: flex;
-            align-items: center;
-        }
-        .conductor{
-            margin-left: 0%;
-        }
-        .label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        .rating {
-            display: inline-block;
-            border: 1px solid #ccc;
-            padding: 15px;
-        }
-        .rating input {
-            display: none;
-        }
-        .rating label {
-            float: right;
-            color: #ddd;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .rating label:before {
-            content: '\2605';
-        }
-        .rating input:checked ~ label {
-            color: #f90;
-        }
-        .rating label:hover,
-        .rating label:hover ~ label {
-            color: #f90;
-        }
-        .textbox {
-            border: 0px solid #ccc;
-            padding: 20px;
-        }
-        .textbox textarea {
-            width: 250px;
-            border: 40;
-            outline: none;
-            resize: none;
-        }
-</style> 
 </body>
 </html>

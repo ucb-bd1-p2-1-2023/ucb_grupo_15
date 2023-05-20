@@ -1,0 +1,133 @@
+.comentarios{
+    width: 330px;
+    height: 250px;
+    /*border: 1px solid red;*/
+}
+
+
+
+.bot_atras{
+    margin-left: 13px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font: condensed bold 15px sans-serif;
+}
+.bot_atras {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.bot_atras:hover {background-color: green}
+
+.bot_atras:active {
+    background-color: green;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+
+.nom_label{
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    float: left;
+    font: condensed bold 150% sans-serif;
+}
+/*Contenedor del nombre y las estrellas*/
+.contenedor_nom_estrella{
+    white-space: nowrap;
+    height: 50px;
+    width: 320px;
+    margin-left: 10px;
+    /*border: 1px solid black;*/
+    display: flex;
+    justify-content: center;
+}
+.nombre, .estrellas{
+    display: inline-block;
+}
+/*Nombre caja*/
+.nombre{
+    width: 150px;
+    height: 40px;
+    margin-left: 0%;
+    margin-right: 30px;
+    /*border: 1px solid black;*/
+}
+/*Estrellas caja*/
+.estrellas{
+    width: 130px;
+    height: 40px;
+    /*border: 1px solid black;*/
+}
+/*Caja de comentarios*/
+.coment_text{
+    margin-left: 18px;
+    width: 300px;
+}
+.estrellas-container {
+    display: flex;
+    align-items: center;
+}
+.estrellas input {
+    display: none;
+}
+.estrellas label {
+    float: right;
+    color: gray;
+    font-size: 30px;
+    cursor: pointer;
+}
+.estrellas label:before {
+    content: '\2605';
+}
+.estrellas input:checked ~ label {
+    color: #f90;
+}
+.estrellas label:hover,
+.estrellas label:hover ~ label {
+    color: #f90;
+}
+
+/*Boton abajo*/
+.boton_comentar{
+    margin-top: 2px;
+    float: right;
+    font-weight: bold;
+    margin-right: 2px;
+    font: condensed bold 17px sans-serif;
+}
+.boton_comentar {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.boton_comentar:hover {background-color: green}
+
+.boton_comentar:active {
+    background-color: green;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
