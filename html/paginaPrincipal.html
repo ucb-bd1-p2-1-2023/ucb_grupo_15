@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>In Drive</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style_Mapa.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkeIuW3s504gN8C1Tl5Bqy3ML6ly_rEpc"></script>
     <script>
         var map;
@@ -39,13 +39,15 @@
         
         function establecerMarcadorOrigen(location) {
             marcadorOrigen.setPosition(location);
-            calcularDistancia();
+            //calcularDistancia();
         }
         
         function establecerMarcadorDestino(location) {
             marcadorDestino.setPosition(location);
-            calcularDistancia();
+            //calcularDistancia();
+        }
 
+        function establecesLugar(){
             // Obtener los elementos de los labels por su ID
             var fechaLabel = document.getElementById("fechaLabel");
             var horaLabel = document.getElementById("horaLabel");
@@ -60,6 +62,7 @@
             // Actualizar el contenido de los labels con la fecha y hora
             fechaLabel.innerHTML += fechaFormateada;
             horaLabel.innerHTML += horaFormateada;
+            calcularDistancia();
         }
         
         function calcularDistancia() {
@@ -73,7 +76,23 @@
                 destination: destino,
                 travelMode: google.maps.TravelMode.DRIVING
             };
-        
+            
+            function calcularMonto(distancia, duracion) {
+                // Supongamos que el costo por kilómetro es de $2 y el costo por minuto es de $0.5
+                var costoPorKilometro = 2;
+                var costoPorMinuto = 0.5;
+
+                // Extraer el valor numérico de la distancia y la duración
+                var distanciaNum = parseFloat(distancia.replace(' km', ''));
+                var duracionNum = parseFloat(duracion.replace(' mins', ''));
+
+                // Calcular el monto
+                var monto = (distanciaNum * costoPorKilometro) + (duracionNum * costoPorMinuto);
+
+                // Retornar el monto redondeado a 2 decimales
+                return monto.toFixed(2);
+            }
+
             directionsService.route(request, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     var distancia = response.routes[0].legs[0].distance.text;
@@ -83,7 +102,8 @@
                     document.getElementById('resultado_duracion').innerHTML = duracion;
                     
                     //falta el monto
-                    document.getElementById('monto').innerHTML;
+                    var monto = calcularMonto(distancia, duracion);
+                    document.getElementById('monto').innerHTML = monto;
                 } else {
                     document.getElementById('resultado').innerHTML = 'Error al calcular la distancia.';
                 }
@@ -97,8 +117,9 @@
             <h1>Mapa</h1>
             <a class="botones_arriba" href="index.html" > Atras<a></a>
             <div class="botones_head">
-                <a class="botones_arriba" href="comentarios.html"> Comentarios</a>
-                <button class="botones_arriba"> Historial</button>
+                <a class="botones_arriba" href="../html/comentarios.html"> Comentarios</a>
+                <a class="botones_arriba" href="../html/Promociones.html"> Promociones</a>
+                <a class="botones_arriba" href="../html/historial.html"> Historial</a>
             </div>
         </div>
         <div id="map"></div>
@@ -107,6 +128,7 @@
             <div class="botones">
                 <button class="botones_arriba" onclick="establecerMarcadorOrigen(map.getCenter())">Origen</button>
                 <button class="botones_arriba" onclick="establecerMarcadorDestino(map.getCenter())">Destino</button>
+                <button class="botones_arriba" onclick="establecesLugar()">Calcular</button>
             </div>
             <div class="labels_form">
                 <label class="titulo">Distancia: </label>

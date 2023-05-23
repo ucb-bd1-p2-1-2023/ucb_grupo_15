@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style_Promociones.css">
+    <script src="./promocion.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="promociones">
+        <div class="botones_head">
+            <a class="bt_atras" id="bt_atras" href="./paginaPrincipal.html">Atras</a>
+        </div>
+        <div class="titulo">
+            <label class="lb_titulo">Promocion</label>
+            <label class="lb_promocion">Añadir una Promocion</label>
+            <button class="bt_add_promo" onclick="submitPromocion()">+</button>
+        </div>
+        <div class="body">
+            <label class="lb_body">Clave:</label>
+            <input type="text" id="id_clave">
+            <label class="lb_body">Descuento (%): </label>
+            <input type="text" id="id_descuento">
+            <br>
+            <label class="lb_body">Fecha de Inicio: </label>
+            <input type="date" name="" id="id_date_inicio">
+            <label class="lb_body">Fecha de Fin: </label>
+            <input type="date" name="" id="id_date_fin">
+        </div>
+    </div>
+</body>
+</html>

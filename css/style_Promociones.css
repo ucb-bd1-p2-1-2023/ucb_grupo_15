@@ -1,0 +1,100 @@
+.promociones{
+    border: 1px solid black;
+    width: 50%;
+    height: 250px;
+}
+.botones_head{
+    border: 1px solid red;
+    width: 90%;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 4.5%;
+}
+.bt_atras{
+    margin-left: 13px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font: condensed bold 15px sans-serif;
+}
+.bt_atras {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.bt_atras:hover {background-color: green}
+
+.bt_atras:active {
+    background-color: green;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.titulo{
+    border: 1px solid blue;
+    margin-top: 5px;
+    width: 90%;
+    margin-left: 4.5%;
+}
+
+.lb_titulo{
+    font-weight: bold;
+    text-decoration: underline;
+    font: bold 200% sans-serif;
+}
+
+.lb_promocion{
+    font-weight: bold;
+    font: bold 100% sans-serif;
+    margin-left: 27%;
+}
+
+.bt_add_promo{
+    margin-left: 13px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font: condensed bold 100% sans-serif;
+}
+.bt_add_promo {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.bt_add_promo:hover {background-color: green}
+
+.bt_add_promo:active {
+    background-color: green;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.body{
+    border: 1px solid orange;
+    width: 90%;
+    margin-left: 4.5%;
+    margin-top: 5px;
+    height: 100px;
+}
+.lb_body{
+    font-weight: bold;
+    font: condensed bold 100% sans-serif;
+}
