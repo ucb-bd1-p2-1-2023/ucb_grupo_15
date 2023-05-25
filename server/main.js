@@ -16,35 +16,44 @@ const port = 3000;
 
 //ruta principal o vacia
 app.get('/', (req, res) => {
-  res.send('API is working - Mauri el profesor');   //nos devuelve un mensaje
+  res.send('API is working');   //nos devuelve un mensaje
 })
 
 //agregar informacion GET obtener info
-app.post('/driver',(req, res) => {
+app.post('/Users',(req, res) => {
   const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
-  const query = `INSERT INTO user(firstName, lastName, email) VALUES ('${body.firstName}', '${body.lastName}','${body.email}');`;   //consulta sql
+  const query = `INSERT INTO Users(name, lastname, direction, cell, e_mail) VALUES ('${body.firstName}', '${body.lastName}', '${body.direccion}', '${body.cellphone}','${body.email}');`;   //consulta sql
   connection.connect(); // conectarse a la base de datos
   connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-    if (err) throw err  //sia hay un error
+    if (err) throw err  //si hay un error
     console.log('1 record inserted');   //nueva tupla fue insertada
   })
-  connection.end();
   res.send('1 record inserted');    //insertado fue exitoso
 })
 
 // para una nueva tabla de datps
 // comunicacion entre la base de datos y el formulario
-app.post('/car',(req, res) => {
+app.post('/Promociones',(req, res) => {
+  const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
+  const query = `INSERT INTO Promociones(clave, descuento, date_ini, date_fin) VALUES ('${body.clave}', '${body.descuento}', '${body.fecha_ini}', '${body.fecha_fin}');`;   //consulta sql
+  connection.connect(); // conectarse a la base de datos
+  connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
+    if (err) throw err  //si hay un error
+    console.log('1 promocion fue añadida');   //nueva tupla fue insertada
+  })
+  res.send('1 promocion fue añadida');    //insertado fue exitoso
+})
+/*app.post('/car',(req, res) => {
     const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
     const query = `INSERT INTO user(firstName, lastName, email) VALUES ('${body.firstName}', '${body.lastName}','${body.email}');`;   //consulta sql
     connection.connect(); // conectarse a la base de datos
     connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-      if (err) throw err  //sia hay un error
+      if (err) throw err  //si hay un error
       console.log('1 record inserted');   //nueva tupla fue insertada
     })
     connection.end();
     res.send('1 record inserted');    //insertado fue exitoso
-  })
+  })*/
 
 // config del puerto que se ejecute
 app.listen(port, () => {
@@ -54,8 +63,8 @@ app.listen(port, () => {
 // detalles para la coneccion con base de datos
 const connection = mysql.createConnection({
   host: 'localhost',    //local
-  port: '3307', //pueto por defecto
+  port: '3306', //pueto por defecto
   user: 'root', //user se llam root
-  password: 'root', //contraseña es root
-  database: 'db1'
+  password: 'password', //contraseña es root
+  database: 'InDrive'
 })
