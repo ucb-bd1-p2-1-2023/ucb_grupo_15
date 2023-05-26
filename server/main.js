@@ -31,6 +31,18 @@ app.post('/Users',(req, res) => {
   res.send('1 record inserted');    //insertado fue exitoso
 })
 
+// coneccion con Pasajeros
+app.post('/Pasajeros',(req, res) => {
+  const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
+  const query = `INSERT INTO Pasajeros(id_users) VALUES ('${body.firstName}');`;   //consulta sql
+  connection.connect(); // conectarse a la base de datos
+  connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
+    if (err) throw err  //si hay un error
+    console.log('1 record inserted');   //nueva tupla fue insertada
+  })
+  res.send('1 record inserted');    //insertado fue exitoso
+})
+
 // para una nueva tabla de datps
 // comunicacion entre la base de datos y el formulario
 app.post('/Promociones',(req, res) => {

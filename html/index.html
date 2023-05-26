@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="../js/index.js"></script>
     <title>In Driver</title>
 </head>
 <body>
@@ -54,47 +55,5 @@
             <button class="button is-primary is-meidum is-fullwidth mt-6" onclick="submitForm()">Submit</button>
         </div>
     </div>
-    <script>
-        function borrarOpcion1(){
-            document.getElementById("radio_pasajero").checked = false;
-        }
-
-        function borrarOpcion2(){
-            document.getElementById("radio_driver").checked = false;
-        }
-
-        function submitForm() {
-
-            function getValues() {
-                return {
-                    firstName: document.getElementById('firstName').value,
-                    lastName: document.getElementById('lastName').value,
-                    email: document.getElementById('email').value,
-                    cellphone: document.getElementById('cel').value,
-                    direccion: document.getElementById('direccion').value,
-                }
-            }
-            
-
-            const url = 'http://localhost:3000/Users';
-            const method = 'POST';
-            const headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            };
-            const body = JSON.stringify(getValues());
-            const medatata = { method, headers, body };
-            fetch(url, medatata)
-            .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
-
-            if (document.getElementById("radio_driver").checked){
-                window.location.href = '../html/driver.html';
-            }
-            if (document.getElementById("radio_pasajero").checked){
-                window.location.href = '../html/paginaPrincipal.html';
-            }
-        }
-    </script>
 </body>
 </html>
