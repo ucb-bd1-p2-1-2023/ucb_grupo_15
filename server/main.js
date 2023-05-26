@@ -80,3 +80,27 @@ const connection = mysql.createConnection({
   password: 'password', //contraseña es root
   database: 'InDrive'
 })
+
+/*
+function getID(){
+  connection.query('SELECT * FROM Users WHERE id_users = ?', ['1'], (error, results, fields) => {
+    if (error) {
+      console.error('Error al realizar la consulta: ', error);
+      return;
+    }
+  
+    // Acceder al valor de la clave primaria en el resultado
+    if (results.length > 0) {
+      const primaryKeyValue = results[0].name;
+      console.log('Valor de la clave primaria: ', primaryKeyValue);
+      return primaryKeyValue;
+    } else {
+      console.log('No se encontró ningún registro.');
+      return;
+    }
+  });
+}
+
+
+*/
+connection.end();

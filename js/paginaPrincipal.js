@@ -108,9 +108,27 @@ window.onload = function() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Conectar con la base de datos
 function submitViaje() {
-
     establecesLugar();
-    const url = 'http://localhost:3000/Users';
+    function getValues(){
+        var origen = marcadorOrigen.getPosition();
+        var destino = marcadorDestino.getPosition();
+        var distancia = document.getElementById('resultado_distancia');
+        var duracion = document.getElementById('resultado_duracion');
+        var fecha = document.getElementById('fechaLabel');
+        var hora = document.getElementById('horaLabel');
+        var monto = document.getElementById('monto');
+        return{
+            origenViaje : origen,
+            destinoViaje : destino,
+            distanciaViaje : distancia.textContent,
+            duracionViaje : duracion.textContent,
+            fechaViaje : fecha.textContent,
+            horaViaje : hora.textContent,
+            montoViaje : monto.textContent,
+        }
+    }
+    alert();
+    const url = 'http://localhost:3000/Viajes';
     const method = 'POST';
     const headers = {
         'Accept': 'application/json',
@@ -121,11 +139,5 @@ function submitViaje() {
     fetch(url, medatata)
     .then(response => response.json())
     .then(response => console.log(JSON.stringify(response)))
-
-    if (document.getElementById("radio_driver").checked){
-        window.location.href = '../html/driver.html';
-    }
-    if (document.getElementById("radio_pasajero").checked){
-        window.location.href = '../html/paginaPrincipal.html';
-    }
+    getID();
 }
