@@ -1,1 +1,8 @@
 winpty docker exec -it mysql3 mysql -u root -p
+
+password
+
+
+use InDrive;
+
+netstat -aon

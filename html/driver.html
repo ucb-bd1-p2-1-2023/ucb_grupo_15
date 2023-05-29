@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/driver.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="../css/style_Driver.css">
     <title>In Driver</title>
@@ -16,13 +17,7 @@
     </div>
     <div class="box my-6">
         <div class="field">
-            <label class="label" for="licencia">Numero de Licencia:</label>
-            <div class="control">
-                <input class="input" type="text" id="licencia" placeholder="Exammple: 000000000000000">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label" for="marca_auto">Marca de auto:</label>
+            <label class="label">Marca de auto:</label>
             <div class="control">
                 <input class="input" type="text" id="marca_auto" placeholder="Example: Toyota">
             </div>
@@ -39,14 +34,8 @@
                 <input class="input" type="capacidad" id="capacidad" placeholder="Example: 2">
             </div>
         </div>
-        <div class="field">
-            <label class="label" for="modelo">Modelo del vehiculo:</label>
-            <div>
-                <input class="input" type="text" id="modelo" placeholder="Example: Mitsubishi Mirage (version GLX TM)">
-            </div>
-        </div>
         <div class="block">
-            <button class="button is-primary is-meidum is-fullwidth mt-6" onclick="submitForm()">Submit</button>
+            <button class="button is-primary is-meidum is-fullwidth mt-6" onclick="submitFormDriver()">Submit</button>
         </div>
     </div>
 </body>

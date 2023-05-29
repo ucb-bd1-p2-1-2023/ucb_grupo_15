@@ -1,106 +1,111 @@
-//Dependencias - Librerias
+// Dependencias - Librerias
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const app = express();
 app.use(bodyParser.json());
 
-//config el cors
+// Configurar el CORS
 app.use(cors({
   origin: '*'
 }));
 
-//asignamos el puerto NO 5005
+// Asignar el puerto NO 5005
 const port = 3000;
 
-//ruta principal o vacia
+// Ruta principal o vacía
 app.get('/', (req, res) => {
-  res.send('API is working');   //nos devuelve un mensaje
-})
+  res.send('API is working');   // Nos devuelve un mensaje
+});
 
-//agregar informacion GET obtener info
-app.post('/Users',(req, res) => {
-  const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
-  const query = `INSERT INTO Users(name, lastname, direction, cell, e_mail) VALUES ('${body.firstName}', '${body.lastName}', '${body.direccion}', '${body.cellphone}','${body.email}');`;   //consulta sql
-  connection.connect(); // conectarse a la base de datos
-  connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-    if (err) throw err  //si hay un error
-    console.log('1 record inserted');   //nueva tupla fue insertada
-  })
-  res.send('1 record inserted');    //insertado fue exitoso
-})
-
-// coneccion con Pasajeros
-app.post('/Pasajeros',(req, res) => {
-  const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
-  const query = `INSERT INTO Pasajeros(id_users) VALUES ('${body.firstName}');`;   //consulta sql
-  connection.connect(); // conectarse a la base de datos
-  connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-    if (err) throw err  //si hay un error
-    console.log('1 record inserted');   //nueva tupla fue insertada
-  })
-  res.send('1 record inserted');    //insertado fue exitoso
-})
-
-// para una nueva tabla de datps
-// comunicacion entre la base de datos y el formulario
-app.post('/Promociones',(req, res) => {
-  const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
-  const query = `INSERT INTO Promociones(clave, descuento, date_ini, date_fin) VALUES ('${body.clave}', '${body.descuento}', '${body.fecha_ini}', '${body.fecha_fin}');`;   //consulta sql
-  connection.connect(); // conectarse a la base de datos
-  connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-    if (err) throw err  //si hay un error
-    console.log('1 promocion fue añadida');   //nueva tupla fue insertada
-  })
-  res.send('1 promocion fue añadida');    //insertado fue exitoso
-})
-/*app.post('/car',(req, res) => {
-    const body = req.body;    //cuerpo de nuestra peticion lo que invia la interface user
-    const query = `INSERT INTO user(firstName, lastName, email) VALUES ('${body.firstName}', '${body.lastName}','${body.email}');`;   //consulta sql
-    connection.connect(); // conectarse a la base de datos
-    connection.query( query, (err, rows, fields) => { //ejecuta la linea de codigo 
-      if (err) throw err  //si hay un error
-      console.log('1 record inserted');   //nueva tupla fue insertada
-    })
-    connection.end();
-    res.send('1 record inserted');    //insertado fue exitoso
-  })*/
-
-// config del puerto que se ejecute
-app.listen(port, () => {
-  console.log(`Project sample is running on: ${port}`)
-})
-
-// detalles para la coneccion con base de datos
-const connection = mysql.createConnection({
-  host: 'localhost',    //local
-  port: '3306', //pueto por defecto
-  user: 'root', //user se llam root
-  password: 'password', //contraseña es root
-  database: 'InDrive'
-})
-
-/*
-function getID(){
-  connection.query('SELECT * FROM Users WHERE id_users = ?', ['1'], (error, results, fields) => {
-    if (error) {
-      console.error('Error al realizar la consulta: ', error);
-      return;
-    }
-  
-    // Acceder al valor de la clave primaria en el resultado
-    if (results.length > 0) {
-      const primaryKeyValue = results[0].name;
-      console.log('Valor de la clave primaria: ', primaryKeyValue);
-      return primaryKeyValue;
-    } else {
-      console.log('No se encontró ningún registro.');
-      return;
-    }
+// Agregar información GET obtener info
+app.post('/Users', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Users(id_users, name, lastname, direction, cell, e_mail) VALUES ('${body.carnet}', '${body.firstName}', '${body.lastName}', '${body.direccion}', '${body.cellphone}','${body.email}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 user inserted');   // Nueva tupla fue insertada
+    res.send('1 user inserted');    // Insertado fue exitoso
   });
-}
+});
 
+app.post('/Pasajeros', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Pasajeros(id_user) VALUES ('${body.carnet}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 pasajero inserted');   // Nueva tupla fue insertada
+    res.send('1 pasajero inserted');    // Insertado fue exitoso
+  });
+});
 
-*/
-connection.end();
+// Agregar información GET obtener info
+app.post('/Driver', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Driver(id_user, id_vehiculo) VALUES ('${body.carnet}', '${body.placa}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 Driver inserted');   // Nueva tupla fue insertada
+    res.send('1 Driver inserted');    // Insertado fue exitoso
+  });
+});
+
+app.post('/Vehiculo', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Vehiculo(placa, modelo, capacidad) VALUES ('${body.placa}', '${body.modelo}', '${body.capacidad}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 vehiculo inserted');   // Nueva tupla fue insertada
+    res.send('1 vehiculo inserted');    // Insertado fue exitoso
+  });
+});
+
+app.post('/Calificaciones', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Calificaciones(puntuacion, comentario) VALUES ('${body.puntuacion}', '${body.comentario}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 Calificacion inserted');   // Nueva tupla fue insertada
+    res.send('1 Calificacion inserted');    // Insertado fue exitoso
+  });
+});
+
+app.post('/Viajes', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Viajes(monto, fecha, hora, origen, destino, duracion, distancia) VALUES ('${body.montoViaje}', '${body.fechaViaje}', '${body.horaViaje}', '${body.origenViaje}', '${body.destinoViaje}', '${body.duracionViaje}', '${body.distanciaViaje}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 Calificacion inserted');   // Nueva tupla fue insertada
+    res.send('1 Calificacion inserted');    // Insertado fue exitoso
+  });
+});
+
+// Agregar promociones
+app.post('/Promociones', (req, res) => {
+  const body = req.body;    // Cuerpo de nuestra petición lo que envía la interfaz de usuario
+  const query = `INSERT INTO Promociones(clave, descuento, date_ini, date_fin) VALUES ('${body.clave}', '${body.descuento}', '${body.fecha_ini}', '${body.fecha_fin}');`;   // Consulta SQL
+  connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
+    if (err) throw err;  // Si hay un error
+    console.log('1 promoción fue añadida');   // Nueva tupla fue insertada
+    res.send('1 promoción fue añadida');    // Insertado fue exitoso
+  });
+
+  // Cerrar la conexión después de finalizar todas las consultas
+  connection.end();
+});
+
+// Configurar el puerto en el que se ejecuta
+app.listen(port, () => {
+  console.log(`Project sample is running on: ${port}`);
+});
+
+// Detalles para la conexión con la base de datos
+const connection = mysql.createConnection({
+  host: 'localhost',    // Localhost
+  port: '3306', // Puerto por defecto
+  user: 'root', // Usuario (root por ejemplo)
+  password: 'password', // Contraseña (root por ejemplo)
+  database: 'InDrive'
+});

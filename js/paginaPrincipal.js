@@ -57,6 +57,7 @@ function establecesLugar(){
     horaLabel.innerHTML += horaFormateada;
     calcularDistancia();
 }
+
 function calcularMonto(distancia, duracion) {
     // Supongamos que el costo por kilómetro es de $2 y el costo por minuto es de $0.5
     var costoPorKilometro = 2;
@@ -92,7 +93,7 @@ function calcularDistancia() {
             document.getElementById('resultado_distancia').innerHTML = distancia;
             document.getElementById('resultado_duracion').innerHTML = duracion;
 
-            //falta el monto
+            // Calcula el monto
             var monto = calcularMonto(distancia, duracion);
             document.getElementById('monto').innerHTML = monto + ' Bs.';
         } else {
@@ -105,29 +106,37 @@ window.onload = function() {
     initMap();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Conectar con la base de datos
+
 function submitViaje() {
-    establecesLugar();
-    function getValues(){
-        var origen = marcadorOrigen.getPosition();
-        var destino = marcadorDestino.getPosition();
-        var distancia = document.getElementById('resultado_distancia');
-        var duracion = document.getElementById('resultado_duracion');
-        var fecha = document.getElementById('fechaLabel');
-        var hora = document.getElementById('horaLabel');
-        var monto = document.getElementById('monto');
-        return{
-            origenViaje : origen,
-            destinoViaje : destino,
-            distanciaViaje : distancia.textContent,
-            duracionViaje : duracion.textContent,
-            fechaViaje : fecha.textContent,
-            horaViaje : hora.textContent,
-            montoViaje : monto.textContent,
-        }
+    var origen = marcadorOrigen.getPosition();
+    var destino = marcadorDestino.getPosition();
+    var distancia = document.getElementById('resultado_distancia').textContent;
+    var duracion = document.getElementById('resultado_duracion').textContent;
+    var fecha = document.getElementById('fechaLabel').textContent;
+    var hora = document.getElementById('horaLabel').textContent;
+    establecesLugar(); // Actualiza los valores antes de obtener el monto
+    var monto = document.getElementById('monto').textContent; // Obtén el monto actualizado
+    alert(monto);
+
+    function getValues() {
+        return {
+            origenViaje: {
+                lat: origen.lat(),
+                lng: origen.lng()
+            },
+            destinoViaje: {
+                lat: destino.lat(),
+                lng: destino.lng()
+            },
+            distanciaViaje: distancia,
+            duracionViaje: duracion,
+            fechaViaje: fecha,
+            horaViaje: hora,
+            montoViaje: monto,
+        };
     }
-    alert();
+
     const url = 'http://localhost:3000/Viajes';
     const method = 'POST';
     const headers = {
@@ -135,9 +144,10 @@ function submitViaje() {
         'Content-Type': 'application/json'
     };
     const body = JSON.stringify(getValues());
-    const medatata = { method, headers, body };
-    fetch(url, medatata)
-    .then(response => response.json())
-    .then(response => console.log(JSON.stringify(response)))
-    getID();
+    const metadata = { method, headers, body };
+
+    fetch(url, metadata)
+        .then(response => response.json())
+        .then(response => console.log(JSON.stringify(response)))
+        .catch(error => console.error(error));
 }
