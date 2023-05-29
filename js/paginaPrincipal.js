@@ -20,6 +20,16 @@ function initMap() {
         title: 'Destino'
     });
 
+    google.maps.event.addListener(marcadorOrigen, 'dragend', function(event) {
+        establecerMarcadorOrigen(event.latLng);
+        calcularDistancia();
+    });
+
+    google.maps.event.addListener(marcadorDestino, 'dragend', function(event) {
+        establecerMarcadorDestino(event.latLng);
+        calcularDistancia();
+    });
+
     google.maps.event.addListener(map, 'click', function(event) {
         establecerMarcadorOrigen(event.latLng);
     });
@@ -32,12 +42,10 @@ function initMap() {
 
 function establecerMarcadorOrigen(location) {
     marcadorOrigen.setPosition(location);
-    //calcularDistancia();
 }
 
 function establecerMarcadorDestino(location) {
     marcadorDestino.setPosition(location);
-    //calcularDistancia();
 }
 
 function establecesLugar(){
@@ -68,6 +76,11 @@ function calcularMonto(distancia, duracion) {
     var duracionNum = parseFloat(duracion.replace(' mins', ''));
 
     var monto = (distanciaNum * costoPorKilometro) + (duracionNum * costoPorMinuto);
+
+    // Verificar si el valor de 'monto' es un número válido
+    if (isNaN(monto)) {
+        return ''; // Si el valor no es válido, devuelve una cadena vacía
+    }
 
     // Retornar el monto redondeado a 2 decimales
     return monto.toFixed(2);
@@ -107,47 +120,58 @@ window.onload = function() {
 }
 
 // Conectar con la base de datos
-
-function submitViaje() {
-    var origen = marcadorOrigen.getPosition();
-    var destino = marcadorDestino.getPosition();
-    var distancia = document.getElementById('resultado_distancia').textContent;
-    var duracion = document.getElementById('resultado_duracion').textContent;
-    var fecha = document.getElementById('fechaLabel').textContent;
-    var hora = document.getElementById('horaLabel').textContent;
-    establecesLugar(); // Actualiza los valores antes de obtener el monto
-    var monto = document.getElementById('monto').textContent; // Obtén el monto actualizado
-    alert(monto);
-
-    function getValues() {
-        return {
-            origenViaje: {
-                lat: origen.lat(),
-                lng: origen.lng()
-            },
-            destinoViaje: {
-                lat: destino.lat(),
-                lng: destino.lng()
-            },
-            distanciaViaje: distancia,
-            duracionViaje: duracion,
-            fechaViaje: fecha,
-            horaViaje: hora,
-            montoViaje: monto,
-        };
-    }
-
+function enviarDatosViaje(datos) {
     const url = 'http://localhost:3000/Viajes';
     const method = 'POST';
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
-    const body = JSON.stringify(getValues());
+    const body = JSON.stringify(datos);
     const metadata = { method, headers, body };
 
     fetch(url, metadata)
         .then(response => response.json())
         .then(response => console.log(JSON.stringify(response)))
         .catch(error => console.error(error));
+}
+
+function extraerDatosViaje() {
+    var origen = marcadorOrigen.getPosition();
+    var destino = marcadorDestino.getPosition();
+    var distancia = document.getElementById('resultado_distancia').textContent;
+    var duracion = document.getElementById('resultado_duracion').textContent;
+    var fechaActual = new Date();
+    var fecha = fechaActual.toISOString().slice(0, 10); // Formatear la fecha en 'YYYY-MM-DD'
+    var hora = fechaActual.toLocaleTimeString();
+    establecesLugar(); // Actualiza los valores antes de obtener el monto
+    var monto = document.getElementById('monto').textContent.trim(); // Obtén el monto actualizado y elimina espacios en blanco
+
+    // Verificar si el monto es un número válido
+    if (isNaN(parseFloat(monto))) {
+        alert('El monto ingresado no es válido.');
+        return null;
+    }
+
+    var origenLatLong = origen.lat() + ',' + origen.lng(); // Combina las coordenadas de origen en una cadena
+    var destinoLatLong = destino.lat() + ',' + destino.lng(); // Combina las coordenadas de destino en una cadena
+
+    return {
+        origen: origenLatLong,
+        destino: destinoLatLong,
+        distanciaViaje: distancia,
+        duracionViaje: duracion,
+        fechaViaje: fecha,
+        horaViaje: hora,
+        montoViaje: monto
+    };
+}
+
+
+
+function obtenerValoresYEnviar() {
+    var datosViaje = extraerDatosViaje();
+    if (datosViaje) {
+        enviarDatosViaje(datosViaje);
+    }
 }

@@ -77,8 +77,8 @@ app.post('/Viajes', (req, res) => {
   const query = `INSERT INTO Viajes(monto, fecha, hora, origen, destino, duracion, distancia) VALUES ('${body.montoViaje}', '${body.fechaViaje}', '${body.horaViaje}', '${body.origenViaje}', '${body.destinoViaje}', '${body.duracionViaje}', '${body.distanciaViaje}');`;   // Consulta SQL
   connection.query(query, (err, rows, fields) => { // Ejecuta la consulta
     if (err) throw err;  // Si hay un error
-    console.log('1 Calificacion inserted');   // Nueva tupla fue insertada
-    res.send('1 Calificacion inserted');    // Insertado fue exitoso
+    console.log('1 Viaje inserted');   // Nueva tupla fue insertada
+    res.send('1 Viaje inserted');    // Insertado fue exitoso
   });
 });
 
